@@ -50,7 +50,7 @@ func consumeSeries(series string, client *FredClient) {
 }
 
 func getClient() (*FredClient, error) {
-    fredConfig := FredConfig{ APIKey: os.Getenv("FRED_API_KEY"), FileType: FileTypeJSON, LogFile: "fred.log", }
+    fredConfig := FredConfig{ APIKey: os.Getenv("FRED_API_KEY"), FileType: FileTypeJSON, LogFile: "/logs/fred.log", }
     return CreateFredClient(fredConfig)
 }
 
