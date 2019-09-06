@@ -21,7 +21,7 @@ func main() {
     fmt.Println("Scraping Freddy")
     claws.ScrapeFreddy()
     
-    fmt.Println("Scraping Census")
-    claws.ScrapeCensus()
+    // fmt.Println("Scraping Census")
+    // claws.ScrapeCensus()
 
 }
