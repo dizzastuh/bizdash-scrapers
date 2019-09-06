@@ -1,9 +1,11 @@
 package claws
 
 import (
-    "path/filepath"
+    "log"
     "fmt"
     "os"
+    "path/filepath"
+    "strings"
 
     "github.com/dizzastuh/bizdash-scrapers/internal/claws/utils"
     . "github.com/nswekosk/fred_go_toolkit"
@@ -28,10 +30,12 @@ func consumeData(client *FredClient) {
 
 func consumeAllSeries(client *FredClient) {    
     seriespath, _ := filepath.Abs("../res/fred-series.txt")
+
     seriesList, err := utils.ToStringArray(seriespath)
     
     if err != nil {
         fmt.Println(err)
+        log.Fatal(err)
     }
 
     // for i:= 0; i < len(seriesList); i++ {
@@ -60,6 +64,10 @@ func consumeSeries(series string, client *FredClient) {
 
 func getClient() (*FredClient, error) {
     logpath, _ := filepath.Abs("../log/fred.log")
-    fredConfig := FredConfig{ APIKey: os.Getenv("FRED_API_KEY"), FileType: FileTypeJSON, LogFile: logpath, }
+
+    apiKey := os.Getenv("FRED_API_KEY")
+    trimmed := strings.Trim(apiKey, "\r\n")
+
+    fredConfig := FredConfig{ APIKey: trimmed, FileType: FileTypeJSON, LogFile: logpath, }
     return CreateFredClient(fredConfig)
 }
