@@ -38,8 +38,7 @@ func consumeAllSeries(client *FredClient) {
         log.Fatal(err)
     }
 
-    // for i:= 0; i < len(seriesList); i++ {
-    for i:= 0; i < 1; i++ {
+    for i:= 0; i < len(seriesList); i++ {
         consumeSeries(seriesList[i], client)
     }
 }
@@ -56,9 +55,10 @@ func consumeSeries(series string, client *FredClient) {
         fmt.Println(err)
     }
     
-    for i:= 0; i < len(srs.Observations); i++ {
+    for i:= 1; i < len(srs.Observations); i++ {
         obs := srs.Observations[i]
-        fmt.Println(obs.Value)
+        // TODO: insert into db
+        fmt.Println(obs)
     }
 }
 

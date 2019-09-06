@@ -12,7 +12,7 @@ import (
 
 type Timestamp time.Time
 
-func Insert() {
+func InsertFred() {
     host := os.Getenv("DB_HOST")
 
     req, _ := http.NewRequest("POST", host, nil)
@@ -21,7 +21,7 @@ func Insert() {
     res, _ := http.DefaultClient.Do(req)
 }
 
-func Fetch() {
+func FetchFred() {
     host := os.Getenv("DB_HOST")
 
     req, _ := http.NewRequest("POST", host, nil)
