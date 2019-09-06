@@ -34,8 +34,8 @@ func consumeAllSeries(client *FredClient) {
         fmt.Println(err)
     }
 
-    for i:= 0; i < len(seriesList); i++ {
-    // for i:= 0; i < 1; i++ {
+    // for i:= 0; i < len(seriesList); i++ {
+    for i:= 0; i < 1; i++ {
         consumeSeries(seriesList[i], client)
     }
 }
@@ -44,8 +44,6 @@ func consumeSeries(series string, client *FredClient) {
     fmt.Printf("Consuming %s\n", series)
     params := make(map[string]interface{})
     params["series_id"] = series
-
-    fmt.Println(params)
 
     srs, err := client.GetSeriesObservations(params)
 
