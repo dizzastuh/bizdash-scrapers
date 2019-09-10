@@ -56,7 +56,7 @@ func consumeSeries(series string, client *FredClient) {
         fmt.Println(err)
     }
 
-    model.InsertFred(srs.Observations, series)
+    model.InsertFredObs(srs, series)
 }
 
 func getClient() (*FredClient, error) {
