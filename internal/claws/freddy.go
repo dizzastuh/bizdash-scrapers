@@ -6,7 +6,8 @@ import (
     "os"
     "path/filepath"
     "strings"
-
+    
+    model "github.com/dizzastuh/bizdash-db/model"
     "github.com/dizzastuh/bizdash-scrapers/internal/claws/utils"
     . "github.com/nswekosk/fred_go_toolkit"
 )
@@ -38,8 +39,7 @@ func consumeAllSeries(client *FredClient) {
         log.Fatal(err)
     }
 
-    // for i:= 0; i < len(seriesList); i++ {
-    for i:= 0; i < 1; i++ {
+    for i:= 0; i < len(seriesList); i++ {
         consumeSeries(seriesList[i], client)
     }
 }
@@ -55,11 +55,8 @@ func consumeSeries(series string, client *FredClient) {
         fmt.Printf("Error retrieving series %s\n", series)
         fmt.Println(err)
     }
-    
-    for i:= 0; i < len(srs.Observations); i++ {
-        obs := srs.Observations[i]
-        fmt.Println(obs.Value)
-    }
+
+    model.InsertFredObs(srs, series)
 }
 
 func getClient() (*FredClient, error) {
