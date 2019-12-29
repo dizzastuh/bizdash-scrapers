@@ -63,7 +63,7 @@ func consumeSeries(series string, client *FredClient) {
 }
 
 func getClient() (*FredClient, error) {
-    logpath, _ := filepath.Abs("../log/fred.log")
+    logpath, _ := filepath.Abs("./log/fred.log")
 
     apiKey := os.Getenv("FRED_API_KEY")
     trimmed := strings.Trim(apiKey, "\r\n")
