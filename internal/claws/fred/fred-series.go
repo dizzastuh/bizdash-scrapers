@@ -6,7 +6,7 @@ import (
     "fmt"
     "path/filepath"
     
-    // model "github.com/dizzastuh/bizdash-db/model"
+    model "github.com/dizzastuh/bizdash-db/model"
     utils "github.com/dizzastuh/bizdash-scrapers/internal/claws/utils"
     . "github.com/nswekosk/fred_go_toolkit"
 )
@@ -31,7 +31,7 @@ func ConsumeAllSeries(client *FredClient) {
     var series FSeriesList
     json.Unmarshal(bytes, &series)
 
-    for i:= 0; i < 1; i++ { // < len(series.List); i++ {
+    for i:= 0; i < len(series.List); i++ {
         consumeSeries(&series.List[i], client)
     }
 }
@@ -49,6 +49,5 @@ func consumeSeries(series *FSeries, client *FredClient) {
     }
 
     fmt.Println(srs)
-    fmt.Println("Got data. Would insert but we're not in the mood.")
-    // model.InsertFredObs(srs, series)
+    model.InsertFredObs(srs, series)
 }
