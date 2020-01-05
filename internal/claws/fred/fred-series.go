@@ -48,6 +48,5 @@ func consumeSeries(series *FSeries, client *FredClient) {
         fmt.Println(err)
     }
 
-    fmt.Println(srs)
-    model.InsertFredObs(srs, series)
+    model.InsertFredObs(srs, series.Name)
 }
