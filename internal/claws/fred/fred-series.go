@@ -11,15 +11,6 @@ import (
     . "github.com/nswekosk/fred_go_toolkit"
 )
 
-type FSeriesList struct {
-    List []FSeries `json:"series"`
-}
-
-type FSeries struct {
-    Name        string `json:"name"`
-    Description string `json:"description"`
-}
-
 func ConsumeAllSeries(client *FredClient) {    
     seriesPath, _ := filepath.Abs("./res/fred-series.json")
 
@@ -28,25 +19,25 @@ func ConsumeAllSeries(client *FredClient) {
 
     bytes, _ := ioutil.ReadAll(seriesFile)
 
-    var series FSeriesList
+    var series model.FSeriesList
     json.Unmarshal(bytes, &series)
 
-    for i:= 0; i < len(series.List); i++ {
+    for i:= 0; i < 1; i++ { // < len(series.List); i++ {
         consumeSeries(&series.List[i], client)
     }
 }
 
-func consumeSeries(series *FSeries, client *FredClient) {
-    fmt.Printf("Consuming %s\n", series)
+func consumeSeries(series *model.FSeries, client *FredClient) {
+    fmt.Printf("Consuming %s\n", series.Name)
     params := make(map[string]interface{})
     params["series_id"] = series.Name
 
     srs, err := client.GetSeriesObservations(params)
 
     if err != nil {
-        fmt.Printf("Error retrieving series %s\n", series)
+        fmt.Printf("Error retrieving series %s\n", series.Name)
         fmt.Println(err)
     }
 
-    model.InsertFredObs(srs, series.Name)
+    model.InsertFredObs(srs, series)
 }
