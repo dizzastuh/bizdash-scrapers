@@ -22,7 +22,7 @@ func ConsumeAllSeries(client *FredClient) {
     var series model.FSeriesList
     json.Unmarshal(bytes, &series)
 
-    for i:= 0; i < 1; i++ { // < len(series.List); i++ {
+    for i:= 0; i < len(series.List); i++ {
         consumeSeries(&series.List[i], client)
     }
 }
